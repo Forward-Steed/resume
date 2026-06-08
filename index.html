@@ -1047,7 +1047,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 9/16;
-      max-height: 320px;
+      max-height: 340px;
       border: var(--line-width) dashed var(--pencil);
       border-radius: var(--radius);
       display: flex;
@@ -1055,10 +1055,14 @@
       align-items: center;
       justify-content: center;
       gap: 0;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       background: var(--paper-dark);
       overflow: hidden;
       transition: all var(--transition);
+    }
+
+    .work-card-inner:hover {
+      border-color: var(--ink);
     }
 
     .work-card:hover .work-card-inner {
@@ -2211,15 +2215,15 @@
           category: '视频创作',
           desc: '负责短视频选题、脚本撰写、拍摄剪辑全流程。涵盖抖音、小红书、B站等平台内容。',
           image: '🐟片/短视频编导作品/1-封面.jpg',
-          video: '🐟片/短视频编导作品/1(2)_compressed.mp4',
+          video: null,
           placeholder: '🎬',
           duration: '精选',
-          count: 5,
+          count: 4,
           items: [
-            { title: '摩飞电器种草', video: '🐟片/短视频编导作品/1(2)_compressed.mp4', cover: '🐟片/短视频编导作品/1-封面.jpg', desc: '摩飞电器产品种草短视频，突出产品核心卖点与使用场景' },
-            { title: '摩飞创意 28', video: '🐟片/短视频编导作品/3.20-摩飞-28_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-28-封面(3).jpg', desc: '摩飞品牌信息流广告创意，精准触达目标消费人群' },
-            { title: '摩飞创意 29', video: '🐟片/短视频编导作品/3.20-摩飞-29_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-29-封面(3).jpg', desc: '摩飞品牌短视频脚本策划，强化品牌认知与购买转化' },
-            { title: '电商种草视频', video: '🐟片/短视频编导作品/5(2)_compressed.mp4', cover: '🐟片/短视频编导作品/5-封面.jpg', desc: '电商产品种草短视频，结合热点话题提升曝光与互动' }
+            { title: '摩飞电器种草', video: '🐟片/短视频编导作品/1(2)_tiny.mp4', cover: '🐟片/短视频编导作品/1-封面.jpg', desc: '摩飞电器产品种草短视频，突出产品核心卖点与使用场景' },
+            { title: '摩飞创意 28', video: '🐟片/短视频编导作品/3.20-摩飞-28_tiny.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-28-封面(3).jpg', desc: '摩飞品牌信息流广告创意，精准触达目标消费人群' },
+            { title: '摩飞创意 29', video: '🐟片/短视频编导作品/3.20-摩飞-29_tiny.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-29-封面(3).jpg', desc: '摩飞品牌短视频脚本策划，强化品牌认知与购买转化' },
+            { title: '电商种草视频', video: '🐟片/短视频编导作品/5(2)_tiny.mp4', cover: '🐟片/短视频编导作品/5-封面.jpg', desc: '电商产品种草短视频，结合热点话题提升曝光与互动' }
           ]
         },
         {
@@ -2228,14 +2232,14 @@
           category: '内容策划',
           desc: '为品牌打造个性化IP形象，从人设定位到内容矩阵的全案策划与执行。',
           image: '🐟片/IP策划案/cover-1.jpg',
-          video: '🐟片/IP策划案/0dbe88d25fed93c1d3855b37c688b3d5.mp4',
+          video: null,
           placeholder: '🎭',
           duration: '精选',
           count: 3,
           items: [
-            { title: 'IP形象策划', video: '🐟片/IP策划案/0dbe88d25fed93c1d3855b37c688b3d5.mp4', cover: '🐟片/IP策划案/cover-1.jpg', desc: '品牌IP形象从零到一策划，打造差异化人设定位' },
-            { title: 'IP内容矩阵', video: '🐟片/IP策划案/1a8c2c8ce50b77ed72241d4d901a2d00.mp4', cover: '🐟片/IP策划案/cover-2.jpg', desc: 'IP内容矩阵全案规划，构建多平台内容生态' },
-            { title: 'IP运营策略', video: '🐟片/IP策划案/25847053d9d45e29c634dd3c9218c208.mp4', cover: '🐟片/IP策划案/cover-3.jpg', desc: 'IP长期运营策略，从粉丝增长到商业变现闭环' }
+            { title: 'IP形象策划', video: '🐟片/IP策划案/0dbe88d25fed93c1d3855b37c688b3d5_tiny.mp4', cover: '🐟片/IP策划案/cover-1.jpg', desc: '品牌IP形象从零到一策划，打造差异化人设定位' },
+            { title: 'IP内容矩阵', video: '🐟片/IP策划案/1a8c2c8ce50b77ed72241d4d901a2d00_tiny.mp4', cover: '🐟片/IP策划案/cover-2.jpg', desc: 'IP内容矩阵全案规划，构建多平台内容生态' },
+            { title: 'IP运营策略', video: '🐟片/IP策划案/25847053d9d45e29c634dd3c9218c208_tiny.mp4', cover: '🐟片/IP策划案/cover-3.jpg', desc: 'IP长期运营策略，从粉丝增长到商业变现闭环' }
           ]
         },
         {
@@ -2244,14 +2248,14 @@
           category: '广告创意',
           desc: '品牌创意策划方案，将产品痛点转化为动人叙事，涵盖电商/信息流/新媒体。',
           image: '🐟片/创意策划案/6月16日-京东-32-封面.jpg',
-          video: '🐟片/创意策划案/6月16日-京东-32(1)_compressed.mp4',
+          video: null,
           placeholder: '💡',
           duration: '精选',
           count: 3,
           items: [
-            { title: '京东618创意', video: '🐟片/创意策划案/6月16日-京东-32(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-32-封面.jpg', desc: '京东618大促创意策划，结合品牌调性与促销节点' },
-            { title: '京东品牌故事', video: '🐟片/创意策划案/6月16日-京东-33(2).mp4', cover: '🐟片/创意策划案/6月16日-京东-33-封面.jpg', desc: '京东品牌故事短片策划，用情感叙事传递品牌价值' },
-            { title: '京东产品推广', video: '🐟片/创意策划案/6月16日-京东-34(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-34-封面.jpg', desc: '京东产品推广创意方案，从痛点洞察到创意表达' }
+            { title: '京东618创意', video: '🐟片/创意策划案/6月16日-京东-32(1)_tiny.mp4', cover: '🐟片/创意策划案/6月16日-京东-32-封面.jpg', desc: '京东618大促创意策划，结合品牌调性与促销节点' },
+            { title: '京东品牌故事', video: '🐟片/创意策划案/6月16日-京东-33(2)_tiny.mp4', cover: '🐟片/创意策划案/6月16日-京东-33-封面.jpg', desc: '京东品牌故事短片策划，用情感叙事传递品牌价值' },
+            { title: '京东产品推广', video: '🐟片/创意策划案/6月16日-京东-34(1)_tiny.mp4', cover: '🐟片/创意策划案/6月16日-京东-34-封面.jpg', desc: '京东产品推广创意方案，从痛点洞察到创意表达' }
           ]
         }
       ],
