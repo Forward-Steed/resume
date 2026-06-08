@@ -1256,8 +1256,16 @@
       font-family: var(--font-hand);
       font-size: 22px;
       color: var(--ink);
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       letter-spacing: 1px;
+    }
+
+    .video-modal-desc {
+      font-size: 14px;
+      color: var(--ink-faint);
+      line-height: 1.6;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
 
     .video-container {
@@ -1434,7 +1442,7 @@
       background: var(--paper);
       border: var(--line-width-bold) solid var(--ink);
       border-radius: var(--radius-lg);
-      padding: 32px;
+      padding: 40px 32px 32px;
       max-width: 1000px;
       width: 100%;
       max-height: 90vh;
@@ -1462,11 +1470,13 @@
     }
 
     .category-modal-close {
-      position: absolute;
-      top: -16px;
-      right: -16px;
+      position: sticky;
+      top: 0;
+      float: right;
       width: 44px;
       height: 44px;
+      margin-top: -8px;
+      margin-right: -8px;
       border-radius: 50%;
       background: var(--coral);
       border: var(--line-width-bold) solid var(--ink);
@@ -1477,7 +1487,8 @@
       align-items: center;
       justify-content: center;
       transition: all var(--transition-bounce);
-      z-index: 2;
+      z-index: 10;
+      flex-shrink: 0;
     }
 
     .category-modal-close:hover {
@@ -1603,6 +1614,18 @@
       color: var(--ink);
       letter-spacing: 1px;
       text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .category-item-desc {
+      font-size: 12px;
+      color: var(--ink-faint);
+      line-height: 1.5;
+      text-align: center;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     /* ============================================
@@ -2090,6 +2113,7 @@
     <div class="video-modal" onclick="event.stopPropagation()">
       <button class="video-modal-close" onclick="closeVideoModal()" aria-label="关闭">✕</button>
       <h3 class="video-modal-title" id="videoModalTitle">作品标题</h3>
+      <div class="video-modal-desc" id="videoModalDesc"></div>
       <div class="video-container" id="videoContainer">
         <div class="video-placeholder-msg">
           <span class="big-emoji">🎬</span>
@@ -2192,10 +2216,10 @@
           duration: '精选',
           count: 5,
           items: [
-            { title: '作品 1', video: '🐟片/短视频编导作品/1(2)_compressed.mp4', cover: '🐟片/短视频编导作品/1-封面.jpg' },
-            { title: '摩飞作品 28', video: '🐟片/短视频编导作品/3.20-摩飞-28_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-28-封面(3).jpg' },
-            { title: '摩飞作品 29', video: '🐟片/短视频编导作品/3.20-摩飞-29_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-29-封面(3).jpg' },
-            { title: '作品 5', video: '🐟片/短视频编导作品/5(2)_compressed.mp4', cover: '🐟片/短视频编导作品/5-封面.jpg' }
+            { title: '摩飞电器种草', video: '🐟片/短视频编导作品/1(2)_compressed.mp4', cover: '🐟片/短视频编导作品/1-封面.jpg', desc: '摩飞电器产品种草短视频，突出产品核心卖点与使用场景' },
+            { title: '摩飞创意 28', video: '🐟片/短视频编导作品/3.20-摩飞-28_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-28-封面(3).jpg', desc: '摩飞品牌信息流广告创意，精准触达目标消费人群' },
+            { title: '摩飞创意 29', video: '🐟片/短视频编导作品/3.20-摩飞-29_compressed.mp4', cover: '🐟片/短视频编导作品/3.20-摩飞-29-封面(3).jpg', desc: '摩飞品牌短视频脚本策划，强化品牌认知与购买转化' },
+            { title: '电商种草视频', video: '🐟片/短视频编导作品/5(2)_compressed.mp4', cover: '🐟片/短视频编导作品/5-封面.jpg', desc: '电商产品种草短视频，结合热点话题提升曝光与互动' }
           ]
         },
         {
@@ -2209,9 +2233,9 @@
           duration: '精选',
           count: 3,
           items: [
-            { title: 'IP策划 1', video: '🐟片/IP策划案/0dbe88d25fed93c1d3855b37c688b3d5.mp4', cover: '🐟片/IP策划案/cover-1.jpg' },
-            { title: 'IP策划 2', video: '🐟片/IP策划案/1a8c2c8ce50b77ed72241d4d901a2d00.mp4', cover: '🐟片/IP策划案/cover-2.jpg' },
-            { title: 'IP策划 3', video: '🐟片/IP策划案/25847053d9d45e29c634dd3c9218c208.mp4', cover: '🐟片/IP策划案/cover-3.jpg' }
+            { title: 'IP形象策划', video: '🐟片/IP策划案/0dbe88d25fed93c1d3855b37c688b3d5.mp4', cover: '🐟片/IP策划案/cover-1.jpg', desc: '品牌IP形象从零到一策划，打造差异化人设定位' },
+            { title: 'IP内容矩阵', video: '🐟片/IP策划案/1a8c2c8ce50b77ed72241d4d901a2d00.mp4', cover: '🐟片/IP策划案/cover-2.jpg', desc: 'IP内容矩阵全案规划，构建多平台内容生态' },
+            { title: 'IP运营策略', video: '🐟片/IP策划案/25847053d9d45e29c634dd3c9218c208.mp4', cover: '🐟片/IP策划案/cover-3.jpg', desc: 'IP长期运营策略，从粉丝增长到商业变现闭环' }
           ]
         },
         {
@@ -2225,9 +2249,9 @@
           duration: '精选',
           count: 3,
           items: [
-            { title: '京东创意 32', video: '🐟片/创意策划案/6月16日-京东-32(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-32-封面.jpg' },
-            { title: '京东创意 33', video: '🐟片/创意策划案/6月16日-京东-33(2).mp4', cover: '🐟片/创意策划案/6月16日-京东-33-封面.jpg' },
-            { title: '京东创意 34', video: '🐟片/创意策划案/6月16日-京东-34(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-34-封面.jpg' }
+            { title: '京东618创意', video: '🐟片/创意策划案/6月16日-京东-32(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-32-封面.jpg', desc: '京东618大促创意策划，结合品牌调性与促销节点' },
+            { title: '京东品牌故事', video: '🐟片/创意策划案/6月16日-京东-33(2).mp4', cover: '🐟片/创意策划案/6月16日-京东-33-封面.jpg', desc: '京东品牌故事短片策划，用情感叙事传递品牌价值' },
+            { title: '京东产品推广', video: '🐟片/创意策划案/6月16日-京东-34(1)_compressed.mp4', cover: '🐟片/创意策划案/6月16日-京东-34-封面.jpg', desc: '京东产品推广创意方案，从痛点洞察到创意表达' }
           ]
         }
       ],
@@ -2649,6 +2673,7 @@
             <div class="item-play-btn" aria-hidden="true"></div>
           </div>
           <div class="category-item-title">${item.title}</div>
+          ${item.desc ? `<div class="category-item-desc">${item.desc}</div>` : ''}
         </div>
       `).join('');
 
@@ -2678,12 +2703,15 @@
       // 打开视频播放模态框
       const modal = document.getElementById('videoModal');
       const title = document.getElementById('videoModalTitle');
+      const desc = document.getElementById('videoModalDesc');
       const container = document.getElementById('videoContainer');
 
       title.textContent = item.title;
+      desc.textContent = item.desc || '';
+      desc.style.display = item.desc ? 'block' : 'none';
 
       container.innerHTML = `
-        <video controls autoplay playsinline style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 2px);">
+        <video controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;border-radius:calc(var(--radius) - 2px);">
           <source src="${item.video}" type="video/mp4">
           <div class="video-placeholder-msg">
             <span class="big-emoji">📱</span>
