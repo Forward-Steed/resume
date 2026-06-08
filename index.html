@@ -1045,6 +1045,7 @@
 
     .work-card-inner {
       position: relative;
+      width: 100%;
       aspect-ratio: 9/16;
       max-height: 320px;
       border: var(--line-width) dashed var(--pencil);
@@ -1053,7 +1054,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 0;
       margin-bottom: 16px;
       background: var(--paper-dark);
       overflow: hidden;
@@ -1108,17 +1109,15 @@
 
     /* 视频缩略图 */
     .work-image {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       border-radius: calc(var(--radius) - 2px);
       display: none;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
     }
 
     .work-card.has-image .work-image {
@@ -1131,6 +1130,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0.9;
+      z-index: 3;
     }
 
     .work-card.has-image:hover .video-play-btn {
