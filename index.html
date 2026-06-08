@@ -220,11 +220,21 @@
       transform: rotate(-5deg);
     }
 
-    /* 手绘涂鸦装饰 */
+    /* 手绘涂鸦装饰 - 漂浮动画 */
     .doodle {
       position: absolute;
       pointer-events: none;
-      opacity: 0.15;
+      opacity: 0.12;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .doodle:nth-child(2) { animation-delay: -2s; animation-duration: 8s; }
+    .doodle:nth-child(3) { animation-delay: -4s; animation-duration: 7s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-12px) rotate(3deg); }
+      66% { transform: translateY(6px) rotate(-2deg); }
     }
 
     .doodle-star {
@@ -254,6 +264,57 @@
       );
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E");
       -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 20'%3E%3Cpath d='M0 10 Q7.5 0 15 10 T30 10 T45 10 T60 10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E");
+    }
+
+    /* 更多手绘涂鸦 */
+    .doodle-heart {
+      width: 20px;
+      height: 20px;
+      background: var(--coral);
+      clip-path: path('M10 18 C10 18 2 12 2 6 C2 3 4 1 7 1 C8.5 1 10 2 10 2 C10 2 11.5 1 13 1 C16 1 18 3 18 6 C18 12 10 18 10 18Z');
+      animation: float 5s ease-in-out infinite;
+      animation-delay: -1s;
+    }
+
+    .doodle-cross {
+      width: 16px;
+      height: 16px;
+      position: relative;
+    }
+
+    .doodle-cross::before,
+    .doodle-cross::after {
+      content: '';
+      position: absolute;
+      background: var(--mint);
+      border-radius: 2px;
+    }
+
+    .doodle-cross::before {
+      width: 100%;
+      height: 3px;
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .doodle-cross::after {
+      width: 3px;
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .doodle-zigzag {
+      width: 50px;
+      height: 20px;
+      background: repeating-linear-gradient(
+        135deg,
+        var(--highlight) 0px,
+        var(--highlight) 3px,
+        transparent 3px,
+        transparent 10px
+      );
+      clip-path: polygon(0 50%, 25% 0, 50% 50%, 75% 0, 100% 50%, 75% 100%, 50% 50%, 25% 100%);
     }
 
     /* Reveal animation */
@@ -473,6 +534,7 @@
       position: relative;
       flex-shrink: 0;
       background: var(--paper);
+      overflow: hidden;
     }
 
     .hero-avatar::before {
@@ -482,6 +544,7 @@
       border-radius: 50%;
       border: var(--line-width) dashed var(--pencil);
       animation: sketchSpin 20s linear infinite;
+      z-index: 2;
     }
 
     .hero-avatar::after {
@@ -491,11 +554,21 @@
       border-radius: 50%;
       border: var(--line-width) solid var(--coral);
       opacity: 0.3;
+      z-index: 2;
     }
 
     @keyframes sketchSpin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-avatar-text {
@@ -939,12 +1012,12 @@
     }
 
     /* ============================================
-       PORTFOLIO / WORKS SECTION - 作品展示
+       PORTFOLIO / WORKS SECTION - 视频作品展示
        ============================================ */
     .works-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
       margin-top: 48px;
     }
 
@@ -953,15 +1026,26 @@
       overflow: visible;
       cursor: pointer;
       background: var(--paper);
+      transition: all var(--transition-bounce);
     }
 
     .work-card .tape {
       background: var(--highlight);
     }
 
+    .work-card:hover {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .work-card:hover::before {
+      top: 10px;
+      left: 10px;
+      opacity: 0.8;
+    }
+
     .work-card-inner {
       position: relative;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/10;
       border: var(--line-width) dashed var(--pencil);
       border-radius: var(--radius);
       display: flex;
@@ -972,6 +1056,82 @@
       margin-bottom: 16px;
       background: var(--paper-dark);
       overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .work-card:hover .work-card-inner {
+      border-color: var(--coral);
+      border-style: solid;
+    }
+
+    /* 视频播放按钮 */
+    .video-play-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--coral);
+      border: var(--line-width-bold) solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      transition: all var(--transition-bounce);
+      cursor: pointer;
+    }
+
+    .video-play-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: var(--line-width) dashed var(--pencil);
+      animation: sketchSpin 15s linear infinite;
+    }
+
+    .video-play-btn::after {
+      content: '▶';
+      color: white;
+      font-size: 20px;
+      margin-left: 4px;
+    }
+
+    .work-card:hover .video-play-btn {
+      transform: scale(1.15);
+      background: var(--coral-light);
+    }
+
+    .work-card:hover .video-play-btn::after {
+      color: var(--ink);
+    }
+
+    /* 视频缩略图 */
+    .work-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .work-card.has-image .work-image {
+      display: block;
+    }
+
+    .work-card.has-image .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.9;
+    }
+
+    .work-card.has-image:hover .video-play-btn {
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 1;
     }
 
     .work-placeholder-icon {
@@ -986,21 +1146,220 @@
       letter-spacing: 1px;
     }
 
-    .work-image {
+    .work-card.has-image .work-placeholder-icon,
+    .work-card.has-image .work-placeholder-text {
+      display: none;
+    }
+
+    /* 视频时长标签 */
+    .video-duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2px 8px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-family: var(--font-hand);
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    /* ============================================
+       VIDEO MODAL - 手绘风格视频播放模态框
+       ============================================ */
+    .video-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 42, 38, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .video-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .video-modal {
+      background: var(--paper);
+      border: var(--line-width-bold) solid var(--ink);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .video-modal-overlay.active .video-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .video-modal::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: -6px;
+      bottom: -6px;
+      border: var(--line-width) solid var(--pencil);
+      border-radius: var(--radius-lg);
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--coral);
+      border: var(--line-width-bold) solid var(--ink);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-bounce);
+      z-index: 2;
+    }
+
+    .video-modal-close:hover {
+      transform: scale(1.15) rotate(90deg);
+      background: var(--coral-light);
+      color: var(--ink);
+    }
+
+    .video-modal-title {
+      font-family: var(--font-hand);
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .video-container {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: var(--paper-dark);
+      border: var(--line-width) dashed var(--pencil);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-container video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: calc(var(--radius) - 2px);
-      display: none;
     }
 
-    .work-card.has-image .work-image {
+    .video-placeholder-msg {
+      font-family: var(--font-hand);
+      font-size: 18px;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 40px;
+    }
+
+    .video-placeholder-msg .big-emoji {
+      font-size: 48px;
       display: block;
+      margin-bottom: 12px;
     }
 
-    .work-card.has-image .work-placeholder-icon,
-    .work-card.has-image .work-placeholder-text {
-      display: none;
+    /* 作品卡片增强交互 */
+    .work-card {
+      position: relative;
+      overflow: visible;
+      cursor: pointer;
+      background: var(--paper);
+      transition: all var(--transition-bounce);
+    }
+
+    .work-card .tape {
+      background: var(--highlight);
+    }
+
+    .work-card:hover {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .work-card:hover::before {
+      top: 10px;
+      left: 10px;
+      opacity: 0.8;
+    }
+
+    /* 视频卡片抖动动画 */
+    @keyframes cardWiggle {
+      0%, 100% { transform: translateY(-8px) rotate(-1deg); }
+      25% { transform: translateY(-8px) rotate(-3deg); }
+      75% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .work-card:hover {
+      animation: cardWiggle 0.4s ease-in-out;
+    }
+
+    /* 悬浮提示 */
+    .work-hover-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: var(--font-hand);
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .work-card:hover .work-hover-hint {
+      opacity: 1;
+    }
+
+    /* 作品数量角标 */
+    .work-count-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--coral);
+      border: var(--line-width) solid var(--ink);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      font-family: var(--font-hand);
     }
 
     .work-title {
@@ -1059,7 +1418,12 @@
     }
 
     .social-card:hover {
-      transform: translate(-2px, -2px);
+      transform: translate(-3px, -3px) rotate(-1deg);
+    }
+
+    .social-card:hover::before {
+      top: 8px;
+      left: 8px;
     }
 
     .social-icon {
@@ -1246,6 +1610,23 @@
       .social-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .video-modal {
+        padding: 16px;
+        margin: 10px;
+      }
+
+      .video-modal-close {
+        top: -12px;
+        right: -12px;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+      .video-modal-title {
+        font-size: 18px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1353,7 +1734,7 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-avatar reveal">
-          <span class="hero-avatar-text">LY</span>
+          <img src="avatar.jpg" alt="李沛钰的头像">
         </div>
         <div class="hero-info">
           <p class="hero-greeting reveal reveal-delay-1">你好呀，我是</p>
@@ -1384,6 +1765,9 @@
     <!-- 手绘装饰 -->
     <div class="doodle doodle-star hero-doodle-1"></div>
     <div class="doodle doodle-circle hero-doodle-2"></div>
+    <div class="doodle doodle-heart hero-doodle-3"></div>
+    <div class="doodle doodle-cross" style="top: 30%; right: 8%;"></div>
+    <div class="doodle doodle-zigzag" style="bottom: 15%; left: 12%;"></div>
   </header>
 
   <!-- ============================================
@@ -1480,6 +1864,21 @@
   <!-- Toast notification -->
   <div class="toast" id="toast"></div>
 
+  <!-- Video Modal -->
+  <div class="video-modal-overlay" id="videoModal" onclick="closeVideoModal(event)">
+    <div class="video-modal" onclick="event.stopPropagation()">
+      <button class="video-modal-close" onclick="closeVideoModal()" aria-label="关闭">✕</button>
+      <h3 class="video-modal-title" id="videoModalTitle">作品标题</h3>
+      <div class="video-container" id="videoContainer">
+        <div class="video-placeholder-msg">
+          <span class="big-emoji">🎬</span>
+          <div>视频作品即将上线</div>
+          <div style="font-size:14px;margin-top:8px;opacity:0.7">敬请期待...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============================================
        JAVASCRIPT
        ============================================ -->
@@ -1545,49 +1944,40 @@
         }
       ],
 
-      // 作品展示数据 - 预留占位，后续可上传真实作品
+      // 作品展示数据 - 视频类作品，支持上传视频文件
       works: [
         {
-          title: '电商短视频脚本',
+          id: 'short-video',
+          title: '短视频编导作品',
+          category: '视频创作',
+          desc: '负责短视频选题、脚本撰写、拍摄剪辑全流程。涵盖抖音、小红书、B站等平台内容。',
+          image: null,
+          video: null, // 后续可设置为 'videos/short-video.mp4'
+          placeholder: '🎬',
+          duration: '待上传',
+          count: 0
+        },
+        {
+          id: 'ip-planning',
+          title: 'IP策划作品',
           category: '内容策划',
-          desc: '为多个电商品牌撰写短视频脚本，涵盖产品种草、使用场景展示等类型。',
+          desc: '为品牌打造个性化IP形象，从人设定位到内容矩阵的全案策划与执行。',
           image: null,
-          placeholder: '🎬'
+          video: null,
+          placeholder: '🎭',
+          duration: '待上传',
+          count: 0
         },
         {
-          title: '信息流广告文案',
-          category: '广告文案',
-          desc: '撰写多平台信息流广告文案，精准触达目标用户群体。',
-          image: null,
-          placeholder: '✍️'
-        },
-        {
-          title: '公众号原创内容',
-          category: '新媒体运营',
-          desc: '围绕楼市、土拍等方向策划并撰写公众号原创文章。',
-          image: null,
-          placeholder: '📰'
-        },
-        {
-          title: '楼盘营销方案',
-          category: '营销策划',
-          desc: '参与楼盘驻点推广，撰写市场监测报告及营销月报。',
-          image: null,
-          placeholder: '🏠'
-        },
-        {
-          title: '短视频剪辑作品',
-          category: '视频制作',
-          desc: '抖音、视频号等平台短视频剪辑，提升粉丝粘性。',
-          image: null,
-          placeholder: '✂️'
-        },
-        {
+          id: 'creative-plan',
           title: '创意策划案',
-          category: '内容策划',
-          desc: '品牌创意策划方案，将产品痛点转化为动人叙事。',
+          category: '广告创意',
+          desc: '品牌创意策划方案，将产品痛点转化为动人叙事，涵盖电商/信息流/新媒体。',
           image: null,
-          placeholder: '💡'
+          video: null,
+          placeholder: '💡',
+          duration: '待上传',
+          count: 0
         }
       ],
 
@@ -1622,32 +2012,28 @@
 
       social: [
         {
-          label: 'GitHub',
-          value: '查看主页',
-          icon: '⚡',
-          url: '#',
-          action: 'link'
+          label: '电话',
+          value: '预留',
+          icon: '📞',
+          url: null,
+          action: 'copy',
+          copyValue: '预留'
         },
         {
-          label: '小红书',
-          value: '查看主页',
-          icon: '📕',
-          url: '#',
-          action: 'link'
-        },
-        {
-          label: '抖音',
-          value: '查看主页',
-          icon: '🎵',
-          url: '#',
-          action: 'link'
+          label: '微信',
+          value: '1156291489',
+          icon: '💬',
+          url: null,
+          action: 'copy',
+          copyValue: '1156291489'
         },
         {
           label: '邮箱',
           value: '1156291489@qq.com',
           icon: '✉️',
           url: null,
-          action: 'copy'
+          action: 'copy',
+          copyValue: '1156291489@qq.com'
         }
       ]
     };
@@ -1700,12 +2086,21 @@
     function renderWorks() {
       const grid = document.getElementById('worksGrid');
       grid.innerHTML = data.works.map((work, i) => `
-        <div class="sketch-card work-card reveal reveal-delay-${Math.min(i + 1, 5)} ${work.image ? 'has-image' : ''}">
+        <div class="sketch-card work-card reveal reveal-delay-${Math.min(i + 1, 5)} ${work.image ? 'has-image' : ''}"
+             onclick="openVideoModal('${work.id}')"
+             role="button"
+             tabindex="0"
+             aria-label="播放 ${work.title}"
+             onkeydown="if(event.key==='Enter'||event.key===' ')openVideoModal('${work.id}')">
           <div class="tape tape-top"></div>
+          ${work.count > 0 ? `<div class="work-count-badge">${work.count}</div>` : ''}
           <div class="work-card-inner">
             <span class="work-placeholder-icon">${work.placeholder}</span>
-            <span class="work-placeholder-text">${work.image ? '' : '作品预览'}</span>
+            <span class="work-placeholder-text">${work.image ? '' : '点击预览'}</span>
             ${work.image ? `<img class="work-image" src="${work.image}" alt="${work.title}">` : ''}
+            <div class="video-play-btn" aria-hidden="true"></div>
+            <span class="video-duration">${work.duration}</span>
+            <div class="work-hover-hint">点击播放 ▶</div>
           </div>
           <div class="work-title">${work.title}</div>
           <div class="work-category">${work.category}</div>
@@ -1745,7 +2140,7 @@
       const grid = document.getElementById('socialGrid');
       grid.innerHTML = data.social.map((s, i) => `
         <div class="sketch-card social-card reveal reveal-delay-${Math.min(i + 1, 5)}"
-             ${s.action === 'link' ? `onclick="window.open('${s.url}', '_blank')"` : ''}
+             ${s.action === 'link' ? `onclick="window.open('${s.url}', '_blank')"` : `onclick="copyToClipboard('${s.copyValue || s.value}', '${s.label}')"`}
              role="button"
              tabindex="0"
              aria-label="${s.label}${s.action === 'copy' ? ' - 点击复制' : ''}">
@@ -1753,7 +2148,7 @@
           <div class="social-icon">${s.icon}</div>
           <span class="social-label">${s.label}</span>
           <span class="social-value">${s.value}</span>
-          ${s.action === 'copy' ? `<button class="copy-btn" onclick="event.stopPropagation(); copyEmail()">复制</button>` : ''}
+          ${s.action === 'copy' ? `<button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('${s.copyValue || s.value}', '${s.label}')">复制</button>` : ''}
         </div>
       `).join('');
     }
@@ -1839,22 +2234,21 @@
     }
 
     // ============================================
-    // COPY EMAIL
+    // COPY TO CLIPBOARD
     // ============================================
-    function copyEmail() {
-      const email = data.personal.email;
-      navigator.clipboard.writeText(email).then(() => {
-        showToast('✓ 邮箱已复制');
+    function copyToClipboard(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`✓ ${label}已复制`);
       }).catch(() => {
         const textarea = document.createElement('textarea');
-        textarea.value = email;
+        textarea.value = text;
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        showToast('✓ 邮箱已复制');
+        showToast(`✓ ${label}已复制`);
       });
     }
 
@@ -1900,10 +2294,79 @@
     }
 
     // ============================================
+    // VIDEO MODAL
+    // ============================================
+    function openVideoModal(workId) {
+      const work = data.works.find(w => w.id === workId);
+      if (!work) return;
+
+      const modal = document.getElementById('videoModal');
+      const title = document.getElementById('videoModalTitle');
+      const container = document.getElementById('videoContainer');
+
+      title.textContent = work.title;
+
+      // 如果有视频文件，显示视频播放器
+      if (work.video) {
+        container.innerHTML = `
+          <video controls autoplay playsinline style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 2px);">
+            <source src="${work.video}" type="video/mp4">
+            <div class="video-placeholder-msg">
+              <span class="big-emoji">📱</span>
+              <div>您的浏览器不支持视频播放</div>
+            </div>
+          </video>
+        `;
+      } else {
+        // 无视频时显示占位提示
+        container.innerHTML = `
+          <div class="video-placeholder-msg">
+            <span class="big-emoji">${work.placeholder}</span>
+            <div>「${work.title}」视频作品即将上线</div>
+            <div style="font-size:14px;margin-top:8px;opacity:0.7">敬请期待...</div>
+          </div>
+        `;
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal(event) {
+      // 如果点击的是模态框内容区域，不关闭
+      if (event && event.target.closest('.video-modal') && !event.target.closest('.video-modal-close')) {
+        return;
+      }
+
+      const modal = document.getElementById('videoModal');
+      const container = document.getElementById('videoContainer');
+
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+
+      // 停止视频播放
+      const video = container.querySelector('video');
+      if (video) {
+        video.pause();
+        video.src = '';
+      }
+    }
+
+    // ESC键关闭模态框
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('videoModal');
+        if (modal.classList.contains('active')) {
+          closeVideoModal();
+        }
+      }
+    });
+
+    // ============================================
     // ACCESSIBILITY
     // ============================================
     function initAccessibility() {
-      document.querySelectorAll('.social-card').forEach(card => {
+      document.querySelectorAll('.social-card, .work-card').forEach(card => {
         card.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
